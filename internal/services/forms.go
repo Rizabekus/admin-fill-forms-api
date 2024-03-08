@@ -47,3 +47,6 @@ func (fs *FormsService) CreateSession(uuid string) error {
 func (fs *FormsService) CheckSession(uuid string) (bool, error) {
 	return fs.storage.CheckSession(uuid)
 }
+func (fs *FormsService) AddForm(NewForm models.AddForm) error {
+	return fs.storage.AddForm(NewForm)
+}

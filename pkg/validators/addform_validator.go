@@ -6,7 +6,7 @@ import (
 	"github.com/go-playground/validator"
 )
 
-func validateCyrillicOrLatinAndAscii(fl validator.FieldLevel) bool {
+func ValidateCyrillicOrLatinAndAscii(fl validator.FieldLevel) bool {
 	projectName := fl.Field().String()
 	hasCyrillic := false
 	hasLatin := false
