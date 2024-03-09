@@ -12,6 +12,7 @@ import (
 )
 
 func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
+	loggers.DebugLog.Println("Received a request to AddForm")
 	cookie, err := r.Cookie("mobydev_api_admin_session")
 	if err != nil {
 		if err == http.ErrNoCookie {
@@ -20,6 +21,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 				Error: "No permission to modify",
 			}
 			handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
+			loggers.DebugLog.Println("Failed to modify a Form without a cookie:")
 			return
 
 		} else {
@@ -27,6 +29,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 				Field: "Internal Server Error",
 				Error: err.Error(),
 			}
+			loggers.InfoLog.Println("Some error with cookies:", err)
 			handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
 
 			return
@@ -39,6 +42,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 			Error: err.Error(),
 		}
 		handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
+		loggers.InfoLog.Println("Failed to check session:", err)
 		return
 
 	}
@@ -48,8 +52,10 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 			Error: "No permission to modify",
 		}
 		handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
+		loggers.InfoLog.Println("Failed to authenticate with wrong cookie")
 		return
 	}
+	loggers.DebugLog.Println("Checked for session")
 	var NewForm models.AddForm
 	err = json.NewDecoder(r.Body).Decode(&NewForm)
 	if err != nil {
@@ -86,9 +92,10 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 
 		handler.Service.FormsService.SendResponse(response, w, http.StatusBadRequest)
 
-		loggers.InfoLog.Println("Validation Error")
+		loggers.InfoLog.Println("Validation Error: ", err)
 		return
 	}
+	loggers.DebugLog.Println("Validated the data")
 	err = handler.Service.FormsService.AddForm(NewForm)
 	if err != nil {
 		response := models.ResponseStructure{
@@ -100,4 +107,5 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 		return
 
 	}
+	loggers.DebugLog.Println("Successfully added the form")
 }

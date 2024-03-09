@@ -24,6 +24,7 @@ func (handler *Handlers) AdminLogin(w http.ResponseWriter, r *http.Request) {
 		loggers.InfoLog.Println("Failed to decode JSON")
 		return
 	}
+	loggers.DebugLog.Println("Received data from JSON")
 	ok := handler.Service.FormsService.CheckCredentials(AdminLogin)
 	if !ok {
 		response := models.ResponseStructure{
@@ -48,6 +49,7 @@ func (handler *Handlers) AdminLogin(w http.ResponseWriter, r *http.Request) {
 		loggers.InfoLog.Println("Failed to create UUID")
 		return
 	}
+	loggers.DebugLog.Println("Created UUID instance")
 	err = handler.Service.FormsService.CreateSession(u2.String())
 	if err != nil {
 
@@ -60,6 +62,7 @@ func (handler *Handlers) AdminLogin(w http.ResponseWriter, r *http.Request) {
 		loggers.InfoLog.Println("Failed to insert UUID into database")
 		return
 	}
+	loggers.DebugLog.Println("Created a session")
 	cookie := &http.Cookie{Name: "mobydev_api_admin_session", Value: u2.String(), Expires: time.Now().Add(365 * 24 * time.Hour)}
 	http.SetCookie(w, cookie)
 	loggers.DebugLog.Println("Successfuly logged in")
