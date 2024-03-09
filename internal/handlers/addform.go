@@ -27,7 +27,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 		} else {
 			response := models.ResponseStructure{
 				Field: "Internal Server Error",
-				Error: err.Error(),
+				Error: "",
 			}
 			loggers.InfoLog.Println("Some error with cookies:", err)
 			handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
@@ -39,7 +39,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		response := models.ResponseStructure{
 			Field: "Internal Server Error",
-			Error: err.Error(),
+			Error: "",
 		}
 		handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
 		loggers.InfoLog.Println("Failed to check session:", err)
@@ -61,7 +61,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		response := models.ResponseStructure{
 			Field: "Failed to decode JSON",
-			Error: err.Error(),
+			Error: "",
 		}
 		handler.Service.FormsService.SendResponse(response, w, http.StatusBadRequest)
 
@@ -77,7 +77,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 		if !ok {
 			response := models.ResponseStructure{
 				Field: "Internal Server Error",
-				Error: err.Error(),
+				Error: "",
 			}
 			handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
 
@@ -87,7 +87,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 		firstValidationError := validationErrors[0]
 		response := models.ResponseStructure{
 			Field: fmt.Sprintf("Field: %s, Tag: %s\n", firstValidationError.Field(), firstValidationError.Tag()),
-			Error: err.Error(),
+			Error: "",
 		}
 
 		handler.Service.FormsService.SendResponse(response, w, http.StatusBadRequest)
@@ -100,7 +100,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		response := models.ResponseStructure{
 			Field: "Internal Server Error",
-			Error: err.Error(),
+			Error: "",
 		}
 		handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
 		loggers.InfoLog.Println("Failed to add Form into database:")

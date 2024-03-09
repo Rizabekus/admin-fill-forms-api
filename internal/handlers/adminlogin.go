@@ -17,7 +17,7 @@ func (handler *Handlers) AdminLogin(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		response := models.ResponseStructure{
 			Field: "Failed to decode JSON",
-			Error: err.Error(),
+			Error: "",
 		}
 		handler.Service.FormsService.SendResponse(response, w, http.StatusBadRequest)
 
@@ -42,7 +42,7 @@ func (handler *Handlers) AdminLogin(w http.ResponseWriter, r *http.Request) {
 
 		response := models.ResponseStructure{
 			Field: "Internal Server Error",
-			Error: err.Error(),
+			Error: "",
 		}
 		handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
 
@@ -55,7 +55,7 @@ func (handler *Handlers) AdminLogin(w http.ResponseWriter, r *http.Request) {
 
 		response := models.ResponseStructure{
 			Field: "Internal Server Error",
-			Error: err.Error(),
+			Error: "",
 		}
 		handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
 
