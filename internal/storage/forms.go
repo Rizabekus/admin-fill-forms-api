@@ -45,7 +45,7 @@ func (fdb *FormsDB) CheckSession(uuid string) (bool, error) {
 	return count > 0, nil
 }
 func (fdb *FormsDB) AddForm(NewForm models.AddForm) error {
-	query := `INSERT INTO users 
+	query := `INSERT INTO projects 
 		(project_name, category, project_type, age_category, year, timing, keywords, summary, director, producer) 
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`
 

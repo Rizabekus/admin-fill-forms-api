@@ -103,7 +103,7 @@ func (handler *Handlers) AddForm(w http.ResponseWriter, r *http.Request) {
 			Error: "",
 		}
 		handler.Service.FormsService.SendResponse(response, w, http.StatusInternalServerError)
-		loggers.InfoLog.Println("Failed to add Form into database:")
+		loggers.InfoLog.Println("Failed to add Form into database:", err)
 		return
 
 	}

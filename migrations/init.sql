@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS projects (
     id SERIAL PRIMARY KEY,
     project_name VARCHAR(255) NULL,
     category VARCHAR(255) NOT NULL,

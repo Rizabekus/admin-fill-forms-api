@@ -13,8 +13,8 @@ import (
 func Routes(h *handlers.Handlers) {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/login", h.AdminLogin).Methods("POST")
-	r.HandleFunc("/addForm", h.AddForm).Methods("POST")
+	r.HandleFunc("/adminlogin", h.AdminLogin).Methods("POST")
+	r.HandleFunc("/addform", h.AddForm).Methods("POST")
 	// r.HandleFunc("/login", h.Login).Methods("POST")
 	// r.HandleFunc("/modify", h.Modify).Methods("POST")
 
